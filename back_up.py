@@ -13,9 +13,6 @@ else:
     username = sys.argv[1]
     password = getpass()
 
-# temporary check
-print(f"NAME: {username} PASSWORD: {len(password) * '*'}")
-
 # load file paths
 with open("config.txt", mode="r", encoding="utf-8") as conf:
     abs_paths = conf.readlines()  # ["home/matous/Documents, "..", ...]
@@ -39,5 +36,5 @@ m = mega.login(username, password)
 # mega upload
 destinated_f = "os_backup2021"
 if (folder := m.find(destinated_f)):
-    m.upload(folder, folder[0])
+    m.upload(filename, folder[0])
 

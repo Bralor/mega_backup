@@ -3,5 +3,5 @@
 # enter absolute path as an argument
 
 #tar -cvf <name_of_file.tar> <arg1> <arg2> <arg3>
-echo "Doing $@"
+tar -cvf $@
 
