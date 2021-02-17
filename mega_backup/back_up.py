@@ -8,6 +8,8 @@ from datetime import datetime
 from traceback import format_exc
 from configparser import ConfigParser
 
+from mega import Mega
+
 
 class Parser:
     def __init__(self, email: str):
@@ -53,30 +55,20 @@ class BackUp:
             return "Success"
 
 
+class Login:
+    def __init__(self, email, backup_file):
+        self.mega = Mega()
+        self.email = email
+        self.password = getpass()
+        self.target = "os_backup2021"
+        self.backup_file = backup_file
 
+    def login_client(self):
+        return self.mega.login(self.email, self.password)
 
-# if not sys.argv[1]:
-    # print("Usage: python name.py 'username' 'arg2'")
-# else:
-    # username = sys.argv[1]
-    # password = getpass()
-
-# config_object = ConfigParser()
-# config_object.read(_CONF_FILE)
-# dirs = config_object[_ALL_PATHS]
-# abs_paths = [dirs[path] for path in dirs if os.path.isdir(dirs[path])]
-
-# today = datetime.now().strftime("%d-%Y")
-# filename = f"os-backup-{today}.tar"
-# abs_paths.insert(0, os.path.abspath(filename))
-
-# if os.path.isfile("./make_backup"):
-    # os.system(f"./make_backup  '{' '.join(abs_paths)}'")
-
-# mega = Mega()
-# m = mega.login(username, password)
-
-# destinated_f = "os_backup2021"
-# if (folder := m.find(destinated_f)):
-    # m.upload(filename, folder[0])
+    def upload_file(self, instance):  # check the parameter
+        if (cloud_folder := instance.find(self.target)):
+            instance.upload(self.backup_file, cloud_folder[0])
+        else:
+            pass
 
