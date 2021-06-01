@@ -4,13 +4,14 @@ from mega_backup.login import Login
 
 
 class MegaFacade:
-    def __init__(self, conf: str, email: str):
-        self.parse_conf = Parser(conf)
+    def __init__(self, email: str):
+        self.parse_conf = Parser()
         self.make_back_up = BackUp()
         self.login = Login(email)
 
     def start_session(self):
-        abs_path = self.parse_conf.create_absolute_paths(self.parse_conf.parse_config())
+        self.parse_conf.check_config()
+        abs_path = self.parse_conf.create_abs_paths(self.parse_conf.parse_config())
         self.make_back_up.abs_paths = abs_path
         self.make_back_up.write_tar_file()
         session = self.login.login_client()
