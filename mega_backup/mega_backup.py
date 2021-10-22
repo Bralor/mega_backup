@@ -5,7 +5,7 @@ from mega_backup.login import Login
 
 class MegaFacade:
     def __init__(self, email: str):
-        self.parse_conf = Parser()
+        self.parse_conf = Parser("backup.conf")
         self.make_back_up = BackUp()
         self.login = Login(email)
 
