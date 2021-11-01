@@ -3,8 +3,9 @@ from configparser import ConfigParser
 
 
 class Parser:
-    def __init__(self, key: str = "PATHS") -> None:
-        self.key = key
+    def __init__(self, config: str, keyname: str = "PATHS") -> None:
+        self.config = config
+        self.keyname = keyname
         self.config = self.find_config().pop()
 
     @staticmethod
@@ -24,7 +25,7 @@ class Parser:
     def parse_config(self):
         config_object = ConfigParser()
         config_object.read(self.config)
-        return config_object[self.key]
+        return config_object[self.keyname]
 
     @staticmethod
     def create_abs_paths(paths) -> list:
