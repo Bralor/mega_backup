@@ -1,4 +1,7 @@
 import os
+import json
+from typing import Dict, Union
+
 from configparser import ConfigParser
 
 
@@ -34,3 +37,22 @@ class Parser:
             for path in paths
             if os.path.isdir(paths[path])
         ]
+
+
+class JsonConfigLoader:
+    """Load the content of .json config file."""
+
+    def __init__(self, filename: str):
+        self.filename = filename
+
+    @staticmethod
+    def is_config(filename: str) -> bool:
+        return os.path.isfile(filename)
+
+    def load_json(self) -> Union[Dict[str, str], None]:
+        """Check if the .json file exists and return its content."""
+        if self.is_config(self.filename):
+            with open(self.filename, encoding="utf-8") as json_f:
+                return json.load(json_f)
+
+    # read the .json file and parse the file paths
