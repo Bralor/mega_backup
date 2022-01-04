@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Dict, Union
+from typing import Dict, Union, List
 
 from configparser import ConfigParser
 
@@ -56,8 +56,11 @@ class JsonConfigLoader:
                 return json.load(json_f)
 
     # read the .json file and parse the file paths
-    def parse_config_paths(self):
+    def parse_config_paths(self) -> List[str]:
         """
-        From the given dictionary get the absolute paths to the directories.
+        From the given dictionary get all the absolute paths.
+
+        Example: {'path1': 'path/to/file1', ...} -> ['path/to/file1', ...]
         """
-        pass
+        return list(self.load_json().values())
+
