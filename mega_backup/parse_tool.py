@@ -56,3 +56,8 @@ class JsonConfigLoader:
                 return json.load(json_f)
 
     # read the .json file and parse the file paths
+    def parse_config_paths(self):
+        """
+        From the given dictionary get the absolute paths to the directories.
+        """
+        pass
