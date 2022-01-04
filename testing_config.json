@@ -1,6 +1,0 @@
-{
-    "cert": "/path/to/certificates",
-    "documents": "/path/to/documents",
-    "projects": "/path/to/projects",
-    "nvim": "/path/to/.config/nvim"
-}
