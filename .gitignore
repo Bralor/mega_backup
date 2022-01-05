@@ -1,3 +1,6 @@
 mega-bup/
 backup.conf
 mega_backup/__pycache__
+env/
+__pycache__
+
