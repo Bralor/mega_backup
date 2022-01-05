@@ -25,12 +25,14 @@ pip install -r requirements.txt
 
 Create CONF file with correct paths (according to the example):
 ```
-[PATHS]
-docs = /home/<user>/Documents
-pictures = /home/<user>/Pictures
-downloads = /home/<user>/Downloads
+{
+    "documents": "/path/to/documents",
+    "projects": "/path/to/projects",
+    "nvim": "/path/to/.config/nvim"
+}
 ```
-Name this file like `backup.conf` and place him into the root folder.
+Name this file like `my_backup.json` and place him into the folder
+`mega_backup/data`.
 
 <br>
 
