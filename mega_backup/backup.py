@@ -92,3 +92,26 @@ class BackupCreator:
                 progress.set_description(f"Compressing {dir_}")
 
 
+    @staticmethod
+    def remove_archive(filename: str) -> str:
+        """
+        Remove the archive that has been already send.
+
+        :param filename: a name of the archive.
+        :rtype param: string
+
+        :Example:
+        >>> self.remove_archive("foobar-11-11-2011.tar")
+        >>> import os
+        >>> "foobar-11-11-2011.tar" in os.listdir()
+        False
+        """
+        try:
+            os.remove(filename)
+
+        except FileNotFoundError:
+            msg: str = f"There is no such file, {filename}"
+        else:
+            msg: str = f"{filename} successfully removed"
+        finally:
+            return msg
