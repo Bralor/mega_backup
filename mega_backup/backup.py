@@ -53,25 +53,35 @@ class BackUp:
 
 
 class BackupCreator:
-    """Create a backup folder from the given directories."""
+    """Create an archive that contains all the given paths."""
 
-    def __init__(self, name: str, folders: List[str]):
+    def __init__(self, name: str, folders: List[str]) -> None:
         self.name = name
         self.folders = folders
         self.format_: str = "%d-%m-%Y"
 
     def create_name(self, date: str) -> str:
-        """Create a new name for the .tar archive."""
+        """
+        Return a new name for the tar archive.
+
+        :param date: mandatory parameter with the given date.
+        :return: a string with the name.
+
+        :Example:
+
+        >>> self.name = "foo"
+        >>> arch = self.create_name("11-11-2011")
+        >>> arch
+        "foo-11-11-2011.tar"
+        """
         return f"{self.name}-{date}.tar"
 
     def write_archive(self, date: str, mod: str = "w:gz") -> None:
         """
-        Create a new .tar archive with the given name as a parameter 'filename'.
+        Create a new .tar archive in current directory.
 
-        Example:
-        date = "11-11-2011"
-        self.name = "test"
-        -> filename = "test-11-11-2011.tar"
+        :param date: a string with date.
+        :param mod: a string with specific mode for tarfile creating.
         """
         filename = self.create_name(date)
         progress = tqdm(self.folders)
