@@ -4,6 +4,7 @@ from tqdm import tqdm
 from typing import List
 from datetime import datetime
 from traceback import format_exc
+from typing import List
 
 
 class BackUp:
@@ -49,4 +50,35 @@ class BackUp:
             print(f"{file} removed")
         else:
             print(f"{file} does not exist")
+
+
+class BackupCreator:
+    """Create a backup folder from the given directories."""
+
+    def __init__(self, name: str, folders: List[str]):
+        self.name = name
+        self.folders = folders
+        self.format_: str = "%d-%m-%Y"
+
+    def create_name(self, date: str) -> str:
+        """Create a new name for the .tar archive."""
+        return f"{self.name}-{date}.tar"
+
+    def write_archive(self, date: str, mod: str = "w:gz") -> None:
+        """
+        Create a new .tar archive with the given name as a parameter 'filename'.
+
+        Example:
+        date = "11-11-2011"
+        self.name = "test"
+        -> filename = "test-11-11-2011.tar"
+        """
+        filename = self.create_name(date)
+        progress = tqdm(self.folders)
+
+        with tarfile.open(filename, mod) as tar_ar:
+            for dir_ in progress:
+                tar_ar.add(dir_)
+                progress.set_description(f"Compressing {dir_}")
+
 
