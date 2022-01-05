@@ -44,9 +44,15 @@ class TestBackUp:
         """Check the creating of the incorrect .tar archive file."""
         assert "foobar-12-12-2012.tar" not in os.listdir()
 
-    def test_cleaning_archive(self):
+    def test_removing_tar_archive_after_uploading(self):
+        """Check if the function correctly remove the archive."""
+        assert self.testing_instance.remove_archive("foobar-11-11-2011.tar") == \
+            "foobar-11-11-2011.tar successfully removed"
+
+    def test_incorrect_removing_tar_archive_after_uploading(self):
         """
-        After checking the correct and the incorrect archive name, clean the
-        folder.
+        Check if the function cannot remove the archive and return proper
+        message.
         """
-        os.remove("foobar-11-11-2011.tar")
+        assert self.testing_instance.remove_archive("foobar-11-11-2011.tar") == \
+            "There is no such file, foobar-11-11-2011.tar"
