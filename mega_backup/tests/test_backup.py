@@ -10,20 +10,27 @@ class TestBackUp:
 
     def setup(self):
         name = "foobar"
+        self.testing_instance = BackupCreator(name)
+
+
+    def test_non_existing_parameter_folders(self):
+        """Verify if the propery 'folders' do not exist."""
+        with pytest.raises(AttributeError) as err:
+            self.testing_instance.folders
+
+    def test_proper_instance_attributes(self):
+        """Verify if the instance contains correct propertties."""
         folders = [
             os.path.join("mega_backup/data", file)
             for file in os.listdir("mega_backup/data")
             if os.path.splitext(file)[1] == ".txt"
         ]
-        self.testing_instance = BackupCreator(name, folders)
-
-    def test_proper_instance_attributes(self):
-        """Verify if the instance contains correct parameters."""
-        assert self.testing_instance.folders != []
-
-    def test_incorrect_parameters_in_testing_instance(self):
-        """Verify if the instance contains correct parameters."""
-        assert "incorrect_path" not in self.testing_instance.folders
+        self.testing_instance.folders = folders
+        assert sorted(self.testing_instance.folders) == [
+            "mega_backup/data/file_1.txt",
+            "mega_backup/data/file_2.txt",
+            "mega_backup/data/file_3.txt",
+        ]
 
     def test_correct_name_of_the_archive(self):
         """Check if the given parameter 'name'."""
@@ -37,6 +44,12 @@ class TestBackUp:
     def test_write_new_tar_archive(self):
         """Check the creating of the new .tar archive file."""
         mod: str = "w:gz"
+        folders = [
+            os.path.join("mega_backup/data", file)
+            for file in os.listdir("mega_backup/data")
+            if os.path.splitext(file)[1] == ".txt"
+        ]
+        self.testing_instance.folders = folders
         self.testing_instance.write_archive("11-11-2011", mod)
         assert "foobar-11-11-2011.tar" in os.listdir()
 
