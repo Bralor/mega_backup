@@ -1,7 +1,6 @@
 import os
 import tarfile
 from typing import List
-from datetime import datetime
 
 from tqdm import tqdm
 
@@ -9,10 +8,17 @@ from tqdm import tqdm
 class BackupCreator:
     """Create an archive that contains all the given paths."""
 
-    def __init__(self, name: str, folders: List[str]) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
-        self.folders = folders
         self.format_: str = "%d-%m-%Y"
+
+    @property
+    def folders(self) -> List[str]:
+        return self._folders
+
+    @folders.setter
+    def folders(self, folders: List[str]) -> None:
+        self._folders = folders
 
     def create_name(self, date: str) -> str:
         """
