@@ -12,12 +12,12 @@ jobs:
       - name: install dependencies [pip]
         run: |
           python -m pip install pip --upgrade pip
-          pip install blake
+          pip install black
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install -r requirements.txt
       
-      - name: run linter [blake]
-        run: blake .
+      - name: run linter [black]
+        run: black .
         
       - name: run unit tests [pytest]
         run: pytest -v
