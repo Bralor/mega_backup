@@ -1,6 +1,7 @@
 import os
 import tarfile
 from typing import List
+from subprocess import run
 
 from tqdm import tqdm
 
@@ -50,6 +51,39 @@ class BackupCreator:
             for dir_ in progress:
                 tar_ar.add(dir_)
                 progress.set_description(f"Compressing {dir_}")
+
+    def verify_folder_size(self, threshold: int):
+        verified: list = []
+        unverified: list = []
+
+        for folder in self.folders:
+            if self.get_size(folder) <= threshold:
+                verified.append(folder)
+            else:
+                unverified.append(folder)
+        else:
+            print(unverified)
+            verified += self.verify_subfolder(unverified, threshold)
+
+        return verified
+
+    def verify_subfolder(self, folders: list, threshold: int) -> list:
+        second_verification: list = []
+
+        for folder in folders:                # ["home/matous/projects"]
+            for child in os.listdir(folder):  # bezrealitky_scraper
+                new_path = os.path.join(folder, child)
+
+                if self.get_size(new_path) <= threshold:
+                    second_verification.append(new_path)
+
+        return second_verification
+
+
+    @staticmethod
+    def get_size(file: str) -> int:
+        process = run(["du", "-sBM", file], capture_output=True, text=True)
+        return int(process.stdout.split()[0].rstrip("M"))
 
 
     @staticmethod
