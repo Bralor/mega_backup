@@ -53,6 +53,9 @@ class BackupCreator:
                 progress.set_description(f"Compressing {dir_}")
 
     def verify_folder_size(self, threshold: int):
+        """
+        Return the list of files their size is smaller than threshold value.
+        """
         verified: list = []
         unverified: list = []
 
@@ -79,12 +82,10 @@ class BackupCreator:
 
         return second_verification
 
-
     @staticmethod
     def get_size(file: str) -> int:
         process = run(["du", "-sBM", file], capture_output=True, text=True)
         return int(process.stdout.split()[0].rstrip("M"))
-
 
     @staticmethod
     def remove_archive(filename: str) -> str:
