@@ -10,6 +10,7 @@ class TestBackUp:
 
     def setup(self):
         name = "foobar"
+        self.testing_file = "mega_backup/data/testing_config.json"
         self.testing_instance = BackupCreator(name)
 
 
@@ -61,6 +62,12 @@ class TestBackUp:
         """Check if the function correctly remove the archive."""
         assert self.testing_instance.remove_archive("foobar-11-11-2011.tar") == \
             "foobar-11-11-2011.tar successfully removed"
+
+    def test_the_correct_file_size_of_testing_file(self):
+        assert self.testing_instance.check_size(self.testing_file) == 1
+
+    def test_the_incorrect_file_size_of_testing_file(self):
+        assert self.testing_instance.check_size(self.testing_file) != 10
 
     def test_incorrect_removing_tar_archive_after_uploading(self):
         """
