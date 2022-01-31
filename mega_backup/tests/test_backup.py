@@ -64,10 +64,10 @@ class TestBackUp:
             "foobar-11-11-2011.tar successfully removed"
 
     def test_the_correct_file_size_of_testing_file(self):
-        assert self.testing_instance.check_size(self.testing_file) == 1
+        assert self.testing_instance.get_size(self.testing_file) == 1
 
     def test_the_incorrect_file_size_of_testing_file(self):
-        assert self.testing_instance.check_size(self.testing_file) != 10
+        assert self.testing_instance.get_size(self.testing_file) != 10
 
     def test_incorrect_removing_tar_archive_after_uploading(self):
         """
