@@ -6,12 +6,12 @@ from mega import Mega
 class Login:
     def __init__(self, email):
         self.email = email
-        self.mega = Mega()
+        self.session = Mega()
         self.password = getpass()
         self.target = "os_backup2021"
 
     def login_client(self):
-        return self.mega.login(self.email, self.password)
+        return self.session.login(self.email, self.password)
 
     def upload_file(self, instance, archive):  # check the parameter
         if (cloud_folder := instance.find(self.target)):
@@ -38,9 +38,13 @@ class AccessLogger:
     def email(self, email: str):
         self._email = email
 
-
     @password.setter
-    def password(self, password: str):
-        self._password = password
+    def password(self):
+        self._password = getpass()
+
+    def login_client(self):
+        """Create session with the credentials to your Mega account."""
+        self.session = Mega()
+        return self.session.login(self._email, self._password)
 
 
