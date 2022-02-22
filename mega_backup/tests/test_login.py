@@ -24,11 +24,12 @@ class TestAccessLogger:
         """Property password should be empty."""
         assert not self.test.password
 
-    def test_empty_password_as_property(self):
-        """Check if the property has correct password."""
-        password: str = "foobar"
-        self.test.password = password
-        assert self.test.password == "foobar"
+    # does not test the function getpass()
+    # def test_empty_password_as_property(self):
+        # """Check if the property has correct password."""
+        # password: str = "foobar"
+        # self.test.password = password
+        # assert self.test.password == "foobar"
 
     def test_the_login_method_with_proper_email_and_password_double(self):
         self.test_double = MegaLogger()
