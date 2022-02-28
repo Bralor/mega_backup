@@ -53,3 +53,11 @@ class TestAccessLogger:
         with pytest.raises(PasswordIsNotCorrect, match="Incorrect password"):
             self.test_double.login_client()
 
+
+    def test_the_uploading_file_into_the_non_existing_folder(self):
+        """Create the test double methods for this test function."""
+        pass
+
+
+    def test_the_uploading_file_into_the_existing_folder(self):
+        pass
