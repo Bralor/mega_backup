@@ -28,12 +28,12 @@ class TestJsonLoader:
 
     def test_json_config_file_name_parameter(self):
         """Check if the instance parameter 'filename' is correct."""
-        assert self.test_instance.filename == \
+        assert self.test_instance.config == \
             "mega_backup/data/testing_config.json"
 
     def test_json_config_file_incorrect_name_parameter(self):
         """Check if the instance parameter 'filename' is NOT correct."""
-        assert self.test_instance.filename != \
+        assert self.test_instance.config != \
             "mega_backup/data/foobar.json"
 
     def test_does_the_config_file_exist(self):
