@@ -54,7 +54,15 @@ class BackupCreator:
 
     def verify_folder_size(self, threshold: int):
         """
-        Return the list of files their size is smaller than threshold value.
+        Return the list of folder that are smaller then the threshold (in MB).
+
+        :param threshold: a number of MBs.
+        :rtype param: integer.
+
+        :Example:
+        >>> b1 = BackupCreator("test")
+        >>> b1.verify_folder_size(10)
+        ['mega_backup/']
         """
         verified: list = []
         unverified: list = []
@@ -64,9 +72,7 @@ class BackupCreator:
                 verified.append(folder)
             else:
                 unverified.append(folder)
-        else:
-            print(unverified)
-            verified += self.verify_subfolder(unverified, threshold)
+        verified += self.verify_subfolder(unverified, threshold)
 
         return verified
 
@@ -84,6 +90,17 @@ class BackupCreator:
 
     @staticmethod
     def get_size(file: str) -> int:
+        """
+        Return size of the folder in Megabytes (shell command 'du -sBM').
+
+        :param file: a name of the file.
+        :rtype param: string
+
+        :Example:
+        >>> b1 = BackupCreator("test")
+        >>> b1.get_size("mega_backup/")
+        1
+        """
         process = run(["du", "-sBM", file], capture_output=True, text=True)
         return int(process.stdout.split()[0].rstrip("M"))
 
