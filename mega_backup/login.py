@@ -23,7 +23,12 @@ class AccessLogger:
         return getpass()
 
     def login_client(self):
-        """Create session with the credentials to your Mega account."""
+        """
+        Create session with the credentials to your Mega account.
+
+        :Example:
+        >>>
+        """
         self.session = Mega()
         return self.session.login(self._email, self.insert_password())
 
@@ -31,6 +36,9 @@ class AccessLogger:
         """
         Upload the file in the parameter 'file' to the folder 'target'
         on your Mega account.
+
+        :Example:
+        >>>
         """
         if (is_available := mega_instance.find(target)):
             print("Uploading data..")
